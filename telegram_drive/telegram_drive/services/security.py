@@ -4,8 +4,8 @@ import frappe
 from frappe.utils.password import check_password, update_password
 
 
-ADMIN_ROLE = "Telegram Drive Admin"
-USER_ROLE = "Telegram Drive User"
+ADMIN_ROLE = "FlowDrive Admin"
+USER_ROLE = "FlowDrive User"
 SYSTEM_MANAGER_ROLE = "System Manager"
 ACCESS_ROLES = {ADMIN_ROLE, USER_ROLE}
 DEFAULT_USER_PERMISSIONS = {
@@ -36,14 +36,14 @@ def require_drive_access():
     if get_owner_token_doc():
         return
     if not has_drive_role():
-        frappe.throw("Telegram Drive access required", frappe.PermissionError)
+        frappe.throw("FlowDrive access required", frappe.PermissionError)
 
 
 def require_admin():
     if get_owner_token_doc():
         return
     if not has_admin_role():
-        frappe.throw("Telegram Drive Admin role required", frappe.PermissionError)
+        frappe.throw("FlowDrive administrator access required", frappe.PermissionError)
 
 
 def current_actor_label(default=None):
@@ -83,7 +83,7 @@ def get_current_drive_permissions():
 def require_drive_permission(permission):
     permissions = get_current_drive_permissions()
     if not permissions.get(permission):
-        frappe.throw("Telegram Drive permission required", frappe.PermissionError)
+        frappe.throw("FlowDrive permission required", frappe.PermissionError)
     return permissions
 
 

@@ -14,7 +14,7 @@
     {"fieldname": "created_at", "label": "Created At", "fieldtype": "Datetime"}
   ],
   "permissions": [
-    {"role": "Telegram Drive Admin", "read": 1, "write": 1, "create": 1, "delete": 1},
-    {"role": "Telegram Drive User", "read": 1}
+    {"role": "FlowDrive Admin", "read": 1, "write": 1, "create": 1, "delete": 1},
+    {"role": "FlowDrive User", "read": 1}
   ]
 }

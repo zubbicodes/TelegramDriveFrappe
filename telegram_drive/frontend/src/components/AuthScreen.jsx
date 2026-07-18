@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { authStart, authCode, authPassword, portalLogin } from '../api';
-import { Loader, Cloud, ShieldCheck, Zap, Eye, EyeOff } from 'lucide-react';
+import { Loader, ShieldCheck, Zap, Eye, EyeOff } from 'lucide-react';
 
 const AuthScreen = ({ onLogin }) => {
   const [mode, setMode] = useState('owner');
@@ -124,12 +124,10 @@ const AuthScreen = ({ onLogin }) => {
     <div className="min-h-screen flex items-center justify-center bg-[#f8fafc] px-4">
       <div className="w-full max-w-md rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
         <div className="flex items-center justify-center mb-6">
-          <div className="mr-3 flex h-12 w-12 items-center justify-center rounded-xl bg-blue-600 text-white">
-            <Cloud className="w-7 h-7" />
-          </div>
+          <img className="mr-3 h-12 w-12 rounded-xl object-contain" src="/assets/telegram_drive/images/flow-drive-logo.png" alt="FlowDrive" />
           <div>
-            <h1 className="text-2xl font-semibold text-gray-900">Telegram Drive</h1>
-            <p className="text-sm text-gray-500">Private cloud storage on Telegram</p>
+            <h1 className="text-2xl font-semibold text-gray-900">FlowDrive</h1>
+            <p className="text-sm text-gray-500">Private cloud storage for your files</p>
           </div>
         </div>
         <div className="grid grid-cols-2 gap-2 mb-6 rounded-lg bg-gray-100 p-1">
@@ -179,7 +177,7 @@ const AuthScreen = ({ onLogin }) => {
             </div>
             <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
               <input type="checkbox" checked={useProxy} onChange={e => setUseProxy(e.target.checked)} className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
-              Keep Telegram connected through a proxy
+              Connect the storage service through a proxy
             </label>
             {useProxy && (
               <div className="space-y-3 rounded-xl border border-gray-200 bg-gray-50 p-3">

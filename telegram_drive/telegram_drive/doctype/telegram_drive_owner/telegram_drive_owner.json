@@ -21,6 +21,6 @@
     {"fieldname": "proxy_password", "label": "Proxy Password", "fieldtype": "Password"}
   ],
   "permissions": [
-    {"role": "Telegram Drive Admin", "read": 1, "write": 1, "create": 1, "delete": 1}
+    {"role": "FlowDrive Admin", "read": 1, "write": 1, "create": 1, "delete": 1}
   ]
 }

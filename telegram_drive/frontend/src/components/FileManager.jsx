@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { createPortalUser, getPortalUsers, getFolders, getAllFolders, getFiles, deleteFolder, deleteFile, createFolder, uploadFile, uploadFileChunk, downloadFileUrl, deletePortalUser, updatePortalUser, getUploadProgress, createShareLink, publicShareUrl, moveFile, getSettings, updateSettings, getStorageSummary, getCloudNotes, createCloudNote, updateCloudNote, deleteCloudNote, startDownload, getDownloadProgress, tempDownloadFileUrl, listTempFiles, deleteTempFile, getMyPermissions, getDriveUserPermissions, saveDriveUserPermission, deleteDriveUserPermission } from '../api';
 import CloudNotes from './CloudNotes';
-import { Folder, File as FileIcon, Trash2, Upload, Plus, ChevronRight, Home, Loader, X, Users, Link, MoveRight, Pencil, Search, Grid3X3, List, HardDrive, LogOut, Cloud, Eye, EyeOff, Download, StickyNote, ShieldCheck } from 'lucide-react';
+import { Folder, File as FileIcon, Trash2, Upload, Plus, ChevronRight, Home, Loader, X, Users, Link, MoveRight, Pencil, Search, Grid3X3, List, HardDrive, LogOut, Eye, EyeOff, Download, StickyNote, ShieldCheck } from 'lucide-react';
 
 const FolderTree = ({ parentId = null, level = 0, selectedId, onSelect }) => {
   const [folders, setFolders] = useState([]);
@@ -563,7 +563,7 @@ const FileManager = ({ onLogout }) => {
   };
 
   const handleDeleteAccess = async (user) => {
-    if (!confirm(`Remove Telegram Drive permissions for ${user}?`)) return;
+    if (!confirm(`Remove FlowDrive permissions for ${user}?`)) return;
     await deleteDriveUserPermission(user);
     await loadDriveUsers();
   };
@@ -674,7 +674,7 @@ const FileManager = ({ onLogout }) => {
   const uploadStatusLabel = (task) => {
     if (task.status === 'error') return 'Failed';
     if (task.status === 'done') return 'Completed';
-    if (task.stage === 'Uploading to Telegram') return 'Uploading to Telegram';
+    if (task.stage === 'Saving securely') return 'Saving securely';
     return 'Uploading';
   };
 
@@ -698,11 +698,9 @@ const FileManager = ({ onLogout }) => {
       <aside className="hidden w-72 flex-col border-r border-gray-200 bg-white md:flex">
         <div className="p-4 border-b border-gray-200 flex items-center justify-between">
           <button onClick={() => { window.location.href = '/app'; }} className="flex min-w-0 items-center rounded-lg text-left transition hover:bg-gray-50" title="Back to Frappe Desk">
-            <div className="mr-3 flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600 text-white">
-              <Cloud className="w-5 h-5" />
-            </div>
+            <img className="mr-3 h-10 w-10 rounded-xl object-contain" src="/assets/telegram_drive/images/flow-drive-logo.png" alt="FlowDrive" />
             <div>
-              <span className="block font-semibold text-gray-900">Telegram Drive</span>
+              <span className="block font-semibold text-gray-900">FlowDrive</span>
             </div>
           </button>
           <div className="flex items-center gap-1">
@@ -1048,7 +1046,7 @@ const FileManager = ({ onLogout }) => {
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
                     <p className="truncate text-sm font-medium text-gray-800">{task.name}</p>
-                    <p className="mt-1 text-xs font-medium text-gray-600">{task.status === 'error' ? 'Failed' : (task.status === 'done' ? 'Ready to download' : 'Downloading from Telegram')}</p>
+                    <p className="mt-1 text-xs font-medium text-gray-600">{task.status === 'error' ? 'Failed' : (task.status === 'done' ? 'Ready to download' : 'Retrieving file')}</p>
                     <p className="mt-0.5 text-xs text-gray-500">{task.stage} · {formatSize(task.bytesDone || 0)} / {formatSize(task.size || 0)} · {formatSpeed(task.speed)}</p>
                   </div>
                   <span className={`shrink-0 text-xs font-semibold ${task.status === 'error' ? 'text-red-500' : (task.status === 'done' ? 'text-green-600' : 'text-blue-600')}`}>

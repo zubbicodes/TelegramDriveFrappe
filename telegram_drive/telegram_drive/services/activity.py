@@ -13,7 +13,7 @@ def actor_label(fallback=None):
 def log_file_activity(action, drive_file=None, actor=None, context=None):
     actor = actor_label(actor)
     filename = getattr(drive_file, "file_name", None) or "Unknown file"
-    subject = f"Telegram Drive {action}: {filename}"
+    subject = f"FlowDrive {action}: {filename}"
     verbs = {"Upload": "uploaded", "Download": "downloaded", "Delete": "deleted"}
     content = f"{actor} {verbs.get(action, action.lower())} {filename}"
     if context:
@@ -47,4 +47,4 @@ def log_file_activity(action, drive_file=None, actor=None, context=None):
             frappe.db.set_value("Activity Log", activity.name, "status", action, update_modified=False)
             frappe.db.commit()
         except Exception:
-            frappe.log_error(frappe.get_traceback(), f"Telegram Drive activity log failed: {action}")
+            frappe.log_error(frappe.get_traceback(), f"FlowDrive activity log failed: {action}")

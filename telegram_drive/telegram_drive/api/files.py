@@ -71,7 +71,7 @@ def _upload_chunk(upload_id, filename, chunk_index, total_chunks, folder_id=None
     if int(chunk_index) + 1 >= int(total_chunks):
         if total_size and bytes_done != int(total_size):
             frappe.throw("Uploaded size does not match expected size")
-        progress.update_progress("upload", upload_id, percent=10, stage="Queued for Telegram", bytes_done=bytes_done, bytes_total=int(total_size) if total_size else bytes_done)
+        progress.update_progress("upload", upload_id, percent=10, stage="Queued for storage", bytes_done=bytes_done, bytes_total=int(total_size) if total_size else bytes_done)
         frappe.enqueue("telegram_drive.api.files.finish_upload", queue="long", upload_id=upload_id, path=path, filename=filename, mime_type=mime_type or mimetypes.guess_type(filename)[0], folder_id=folder_id, uploaded_by_label=uploaded_by_label)
         return {"status": "processing", "upload_id": upload_id}
     return {"status": "chunk_received", "upload_id": upload_id, "bytes_done": bytes_done}
@@ -82,7 +82,7 @@ def finish_upload(upload_id, path, filename, mime_type=None, folder_id=None, upl
 
     def cb(done, total):
         elapsed = max(time.time() - started, 0.001)
-        progress.update_progress("upload", upload_id, percent=int(done * 100 / total) if total else 0, stage="Uploading to Telegram", bytes_done=done, bytes_total=total, speed_bps=int(done / elapsed))
+        progress.update_progress("upload", upload_id, percent=int(done * 100 / total) if total else 0, stage="Saving securely", bytes_done=done, bytes_total=total, speed_bps=int(done / elapsed))
 
     try:
         message_id = telegram_service.upload_file(path, cb)
@@ -119,7 +119,7 @@ def finish_download(download_id, file_id, actor=None, context=None):
 
     def cb(done, total):
         elapsed = max(time.time() - started, 0.001)
-        progress.update_progress("download", download_id, percent=int(done * 100 / total) if total else 0, stage="Downloading from Telegram", bytes_done=done, bytes_total=total, speed_bps=int(done / elapsed), filename=doc.file_name)
+        progress.update_progress("download", download_id, percent=int(done * 100 / total) if total else 0, stage="Retrieving file", bytes_done=done, bytes_total=total, speed_bps=int(done / elapsed), filename=doc.file_name)
 
     try:
         telegram_service.download_file(doc.telegram_message_id, path, cb)

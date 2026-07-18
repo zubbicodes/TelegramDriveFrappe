@@ -11,6 +11,6 @@
     {"fieldname": "expires_at", "label": "Expires At", "fieldtype": "Datetime"}
   ],
   "permissions": [
-    {"role": "Telegram Drive Admin", "read": 1, "write": 1, "create": 1, "delete": 1}
+    {"role": "FlowDrive Admin", "read": 1, "write": 1, "create": 1, "delete": 1}
   ]
 }

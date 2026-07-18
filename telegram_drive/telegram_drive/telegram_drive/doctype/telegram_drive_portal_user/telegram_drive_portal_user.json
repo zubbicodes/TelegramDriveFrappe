@@ -13,6 +13,6 @@
     {"fieldname": "last_login", "label": "Last Login", "fieldtype": "Datetime"}
   ],
   "permissions": [
-    {"role": "Telegram Drive Admin", "read": 1, "write": 1, "create": 1, "delete": 1}
+    {"role": "FlowDrive Admin", "read": 1, "write": 1, "create": 1, "delete": 1}
   ]
 }

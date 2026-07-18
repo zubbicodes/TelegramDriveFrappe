@@ -11,6 +11,6 @@
     {"fieldname": "large_upload_threshold_mb", "label": "Large Upload Threshold MB", "fieldtype": "Int", "default": "50"}
   ],
   "permissions": [
-    {"role": "Telegram Drive Admin", "read": 1, "write": 1}
+    {"role": "FlowDrive Admin", "read": 1, "write": 1}
   ]
 }

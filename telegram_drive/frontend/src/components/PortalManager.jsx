@@ -324,7 +324,7 @@ const PortalManager = ({ onLogout }) => {
   const uploadStatusLabel = (task) => {
     if (task.status === 'error') return 'Failed';
     if (task.status === 'done') return 'Completed';
-    if (task.stage === 'Uploading to Telegram') return 'Uploading to Telegram';
+    if (task.stage === 'Saving securely') return 'Saving securely';
     return 'Uploading';
   };
 

@@ -59,7 +59,7 @@ def get_owner():
     if not name:
         name = frappe.db.get_value("Telegram Drive Owner", {}, "name")
     if not name:
-        frappe.throw("Telegram owner is not configured")
+        frappe.throw("FlowDrive owner is not configured")
     return frappe.get_doc("Telegram Drive Owner", name)
 
 
@@ -146,7 +146,7 @@ def download_file(message_id, path, progress_cb=None):
             await client.connect()
             message = await client.get_messages("me", ids=int(message_id))
             if not message:
-                frappe.throw("Telegram message not found")
+                frappe.throw("Stored file not found")
             await client.download_media(message, file=path, progress_callback=progress_cb)
             return path
         finally:

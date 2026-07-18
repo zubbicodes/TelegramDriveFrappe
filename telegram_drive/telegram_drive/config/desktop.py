@@ -6,10 +6,10 @@ def get_data():
         {
             "module_name": "Telegram Drive",
             "category": "Modules",
-            "label": _("Telegram Drive"),
+            "label": _("FlowDrive"),
             "color": "blue",
             "icon": "octicon octicon-cloud",
             "type": "module",
-            "description": "Telegram Saved Messages backed drive",
+            "description": "Secure cloud drive",
         }
     ]

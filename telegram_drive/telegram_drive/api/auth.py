@@ -39,9 +39,9 @@ def start(phone, api_id, api_hash, proxy_type="none", proxy_host=None, proxy_por
     except ValueError as exc:
         frappe.throw(str(exc))
     except TimeoutError:
-        frappe.throw("Timed out while contacting Telegram. Check the proxy settings and try again.")
+        frappe.throw("Timed out while contacting the storage service. Check the proxy settings and try again.")
     except asyncio.TimeoutError:
-        frappe.throw("Timed out while contacting Telegram. Check the proxy settings and try again.")
+        frappe.throw("Timed out while contacting the storage service. Check the proxy settings and try again.")
     doc.save(ignore_permissions=True)
     frappe.db.commit()
     return {"status": "code_sent", "token": token}

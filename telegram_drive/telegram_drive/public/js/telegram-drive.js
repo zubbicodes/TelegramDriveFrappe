@@ -14,7 +14,7 @@ const render = async () => {
     call("telegram_drive.api.files.list"),
     call("telegram_drive.api.folders.list"),
   ]);
-  document.querySelector("h1").textContent = settings.drive_name || "Telegram Drive";
+  document.querySelector("h1").textContent = settings.drive_name || "FlowDrive";
   document.querySelector("#status").textContent = "Connected to Frappe metadata APIs";
   document.querySelector("#files").innerHTML = files.map(file => `
     <div class="row">
