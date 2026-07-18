@@ -6,6 +6,7 @@ from frappe.utils.password import check_password, update_password
 
 ADMIN_ROLE = "Telegram Drive Admin"
 USER_ROLE = "Telegram Drive User"
+SYSTEM_MANAGER_ROLE = "System Manager"
 ACCESS_ROLES = {ADMIN_ROLE, USER_ROLE}
 DEFAULT_USER_PERMISSIONS = {
     "can_upload": False,
@@ -20,13 +21,15 @@ DEFAULT_USER_PERMISSIONS = {
 def has_drive_role():
     if frappe.session.user == "Guest":
         return False
-    return bool(ACCESS_ROLES & set(frappe.get_roles()))
+    roles = set(frappe.get_roles())
+    return frappe.session.user == "Administrator" or SYSTEM_MANAGER_ROLE in roles or bool(ACCESS_ROLES & roles)
 
 
 def has_admin_role():
     if frappe.session.user == "Guest":
         return False
-    return frappe.session.user == "Administrator" or ADMIN_ROLE in frappe.get_roles()
+    roles = set(frappe.get_roles())
+    return frappe.session.user == "Administrator" or SYSTEM_MANAGER_ROLE in roles or ADMIN_ROLE in roles
 
 
 def require_drive_access():
