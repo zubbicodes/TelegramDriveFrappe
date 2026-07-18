@@ -1,0 +1,19 @@
+{
+  "doctype": "DocType",
+  "name": "Telegram Drive Cloud Note",
+  "module": "Telegram Drive",
+  "custom": 0,
+  "autoname": "format:TDNOTE-{#####}",
+  "fields": [
+    {"fieldname": "title", "label": "Title", "fieldtype": "Data", "reqd": 1},
+    {"fieldname": "body", "label": "Body", "fieldtype": "Text"},
+    {"fieldname": "color", "label": "Color", "fieldtype": "Select", "options": "yellow\nblue\ngreen\npink\nviolet", "default": "yellow"},
+    {"fieldname": "created_by_label", "label": "Created By Label", "fieldtype": "Data"},
+    {"fieldname": "created_at", "label": "Created At", "fieldtype": "Datetime"},
+    {"fieldname": "updated_at", "label": "Updated At", "fieldtype": "Datetime"}
+  ],
+  "permissions": [
+    {"role": "Telegram Drive Admin", "read": 1, "write": 1, "create": 1, "delete": 1},
+    {"role": "Telegram Drive User", "read": 1}
+  ]
+}

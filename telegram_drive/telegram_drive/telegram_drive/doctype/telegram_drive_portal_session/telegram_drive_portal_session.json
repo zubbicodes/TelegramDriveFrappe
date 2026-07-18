@@ -1,0 +1,16 @@
+{
+  "doctype": "DocType",
+  "name": "Telegram Drive Portal Session",
+  "module": "Telegram Drive",
+  "custom": 0,
+  "autoname": "field:token",
+  "fields": [
+    {"fieldname": "token", "label": "Token", "fieldtype": "Data", "unique": 1, "reqd": 1},
+    {"fieldname": "portal_user", "label": "Portal User", "fieldtype": "Link", "options": "Telegram Drive Portal User", "reqd": 1},
+    {"fieldname": "created_at", "label": "Created At", "fieldtype": "Datetime"},
+    {"fieldname": "expires_at", "label": "Expires At", "fieldtype": "Datetime"}
+  ],
+  "permissions": [
+    {"role": "Telegram Drive Admin", "read": 1, "write": 1, "create": 1, "delete": 1}
+  ]
+}

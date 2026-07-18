@@ -1,0 +1,16 @@
+{
+  "doctype": "DocType",
+  "name": "Telegram Drive Setting",
+  "module": "Telegram Drive",
+  "custom": 0,
+  "issingle": 1,
+  "fields": [
+    {"fieldname": "drive_name", "label": "Drive Name", "fieldtype": "Data", "default": "My Drive"},
+    {"fieldname": "temp_retention_hours", "label": "Temp Retention Hours", "fieldtype": "Int", "default": "6"},
+    {"fieldname": "chunk_size_mb", "label": "Chunk Size MB", "fieldtype": "Int", "default": "25"},
+    {"fieldname": "large_upload_threshold_mb", "label": "Large Upload Threshold MB", "fieldtype": "Int", "default": "50"}
+  ],
+  "permissions": [
+    {"role": "Telegram Drive Admin", "read": 1, "write": 1}
+  ]
+}

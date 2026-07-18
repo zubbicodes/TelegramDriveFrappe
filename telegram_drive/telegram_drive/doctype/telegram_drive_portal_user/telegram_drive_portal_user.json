@@ -1,0 +1,18 @@
+{
+  "doctype": "DocType",
+  "name": "Telegram Drive Portal User",
+  "module": "Telegram Drive",
+  "custom": 0,
+  "autoname": "field:username",
+  "fields": [
+    {"fieldname": "username", "label": "Username", "fieldtype": "Data", "unique": 1, "reqd": 1},
+    {"fieldname": "password_hash", "label": "Password Hash", "fieldtype": "Password", "reqd": 1},
+    {"fieldname": "can_upload", "label": "Can Upload", "fieldtype": "Check"},
+    {"fieldname": "enabled", "label": "Enabled", "fieldtype": "Check", "default": "1"},
+    {"fieldname": "created_at", "label": "Created At", "fieldtype": "Datetime"},
+    {"fieldname": "last_login", "label": "Last Login", "fieldtype": "Datetime"}
+  ],
+  "permissions": [
+    {"role": "Telegram Drive Admin", "read": 1, "write": 1, "create": 1, "delete": 1}
+  ]
+}

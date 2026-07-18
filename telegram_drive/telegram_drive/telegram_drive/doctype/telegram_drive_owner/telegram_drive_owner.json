@@ -1,0 +1,26 @@
+{
+  "doctype": "DocType",
+  "name": "Telegram Drive Owner",
+  "module": "Telegram Drive",
+  "custom": 0,
+  "is_submittable": 0,
+  "autoname": "field:phone",
+  "fields": [
+    {"fieldname": "phone", "label": "Phone", "fieldtype": "Data", "unique": 1, "reqd": 1},
+    {"fieldname": "token", "label": "Token", "fieldtype": "Data", "unique": 1},
+    {"fieldname": "api_id", "label": "API ID", "fieldtype": "Int", "reqd": 1},
+    {"fieldname": "api_hash", "label": "API Hash", "fieldtype": "Password", "reqd": 1},
+    {"fieldname": "session_name", "label": "Session Name", "fieldtype": "Data"},
+    {"fieldname": "phone_code_hash", "label": "Phone Code Hash", "fieldtype": "Data"},
+    {"fieldname": "is_authorized", "label": "Is Authorized", "fieldtype": "Check"},
+    {"fieldname": "proxy_type", "label": "Proxy Type", "fieldtype": "Select", "options": "none\nsocks5\nmtproto", "default": "none"},
+    {"fieldname": "proxy_host", "label": "Proxy Host", "fieldtype": "Data"},
+    {"fieldname": "proxy_port", "label": "Proxy Port", "fieldtype": "Int"},
+    {"fieldname": "proxy_secret", "label": "Proxy Secret", "fieldtype": "Password"},
+    {"fieldname": "proxy_username", "label": "Proxy Username", "fieldtype": "Data"},
+    {"fieldname": "proxy_password", "label": "Proxy Password", "fieldtype": "Password"}
+  ],
+  "permissions": [
+    {"role": "Telegram Drive Admin", "read": 1, "write": 1, "create": 1, "delete": 1}
+  ]
+}

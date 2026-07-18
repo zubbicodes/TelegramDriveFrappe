@@ -1,0 +1,23 @@
+{
+  "doctype": "DocType",
+  "name": "Telegram Drive User Permission",
+  "module": "Telegram Drive",
+  "custom": 0,
+  "autoname": "field:user",
+  "fields": [
+    {"fieldname": "user", "label": "User", "fieldtype": "Link", "options": "User", "unique": 1, "reqd": 1},
+    {"fieldname": "enabled", "label": "Enabled", "fieldtype": "Check", "default": "1"},
+    {"fieldname": "permissions_section", "label": "Permissions", "fieldtype": "Section Break"},
+    {"fieldname": "can_upload", "label": "Upload Access", "fieldtype": "Check"},
+    {"fieldname": "can_download", "label": "Download Access", "fieldtype": "Check", "default": "1"},
+    {"fieldname": "column_break_1", "fieldtype": "Column Break"},
+    {"fieldname": "can_delete", "label": "Delete File Access", "fieldtype": "Check"},
+    {"fieldname": "can_manage_folders", "label": "Create/Delete Folder Access", "fieldtype": "Check"},
+    {"fieldname": "column_break_2", "fieldtype": "Column Break"},
+    {"fieldname": "can_share", "label": "Share Link Access", "fieldtype": "Check"},
+    {"fieldname": "can_move", "label": "Move File Access", "fieldtype": "Check"}
+  ],
+  "permissions": [
+    {"role": "Telegram Drive Admin", "read": 1, "write": 1, "create": 1, "delete": 1}
+  ]
+}

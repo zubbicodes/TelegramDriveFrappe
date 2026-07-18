@@ -1,0 +1,14 @@
+[project]
+name = "telegram_drive"
+authors = [{ name = "Telegram Drive" }]
+description = "Telegram Saved Messages backed drive for Frappe/ERPNext"
+requires-python = ">=3.10"
+dependencies = ["telethon", "PySocks", "aiofiles"]
+dynamic = ["version"]
+
+[build-system]
+requires = ["flit_core >=3.4,<4"]
+build-backend = "flit_core.buildapi"
+
+[tool.bench.frappe-dependencies]
+frappe = ">=14.0.0"

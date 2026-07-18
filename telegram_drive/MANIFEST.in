@@ -1,0 +1,2 @@
+include README.md
+recursive-include telegram_drive *.json *.py *.html *.js *.css

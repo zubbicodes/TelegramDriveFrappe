@@ -1,0 +1,20 @@
+{
+  "doctype": "DocType",
+  "name": "Telegram Drive File",
+  "module": "Telegram Drive",
+  "custom": 0,
+  "autoname": "format:TDFILE-{#####}",
+  "fields": [
+    {"fieldname": "telegram_message_id", "label": "Telegram Message ID", "fieldtype": "Int", "reqd": 1},
+    {"fieldname": "file_name", "label": "File Name", "fieldtype": "Data", "reqd": 1},
+    {"fieldname": "file_size", "label": "File Size", "fieldtype": "Int"},
+    {"fieldname": "mime_type", "label": "MIME Type", "fieldtype": "Data"},
+    {"fieldname": "folder", "label": "Folder", "fieldtype": "Link", "options": "Telegram Drive Folder"},
+    {"fieldname": "uploaded_by_label", "label": "Uploaded By Label", "fieldtype": "Data"},
+    {"fieldname": "created_at", "label": "Created At", "fieldtype": "Datetime"}
+  ],
+  "permissions": [
+    {"role": "Telegram Drive Admin", "read": 1, "write": 1, "create": 1, "delete": 1},
+    {"role": "Telegram Drive User", "read": 1}
+  ]
+}

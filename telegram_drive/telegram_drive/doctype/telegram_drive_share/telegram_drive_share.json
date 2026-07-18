@@ -1,0 +1,18 @@
+{
+  "doctype": "DocType",
+  "name": "Telegram Drive Share",
+  "module": "Telegram Drive",
+  "custom": 0,
+  "autoname": "field:token",
+  "fields": [
+    {"fieldname": "token", "label": "Token", "fieldtype": "Data", "unique": 1, "reqd": 1},
+    {"fieldname": "drive_file", "label": "Drive File", "fieldtype": "Link", "options": "Telegram Drive File", "reqd": 1},
+    {"fieldname": "enabled", "label": "Enabled", "fieldtype": "Check", "default": "1"},
+    {"fieldname": "created_at", "label": "Created At", "fieldtype": "Datetime"},
+    {"fieldname": "expires_at", "label": "Expires At", "fieldtype": "Datetime"},
+    {"fieldname": "download_count", "label": "Download Count", "fieldtype": "Int", "default": "0"}
+  ],
+  "permissions": [
+    {"role": "Telegram Drive Admin", "read": 1, "write": 1, "create": 1, "delete": 1}
+  ]
+}
