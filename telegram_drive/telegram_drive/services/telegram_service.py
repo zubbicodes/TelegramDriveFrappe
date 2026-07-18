@@ -8,9 +8,6 @@ from telethon.network.connection.tcpmtproxy import ConnectionTcpMTProxyRandomize
 
 from telegram_drive.services.temp_files import ensure_dirs, sessions_dir
 
-_CLIENTS = {}
-
-
 def _run(coro):
     try:
         loop = asyncio.get_event_loop()
@@ -71,18 +68,6 @@ def client_for(owner=None):
     owner = owner or get_owner()
     session_name = owner.session_name or f"telegram_drive_{owner.phone}"
     session_path = os.path.join(sessions_dir(), session_name)
-    key = (
-        session_name,
-        owner.proxy_type or "none",
-        owner.proxy_host,
-        owner.proxy_port,
-        _secret(owner, "proxy_secret"),
-        owner.proxy_username,
-        bool(_secret(owner, "proxy_password")),
-    )
-    if key in _CLIENTS:
-        client = _CLIENTS[key]
-        return client
     proxy = _proxy(owner)
     kwargs = {
         "timeout": 120,
@@ -92,70 +77,89 @@ def client_for(owner=None):
     }
     if proxy:
         kwargs.update(proxy)
-    client = TelegramClient(session_path, int(owner.api_id), _secret(owner, "api_hash"), **kwargs)
-    _CLIENTS[key] = client
-    return client
+    return TelegramClient(session_path, int(owner.api_id), _secret(owner, "api_hash"), **kwargs)
 
 
 def send_code(owner):
     async def inner():
         client = client_for(owner)
-        await asyncio.wait_for(client.connect(), timeout=30)
-        sent = await asyncio.wait_for(client.send_code_request(owner.phone), timeout=30)
-        return sent.phone_code_hash
+        try:
+            await asyncio.wait_for(client.connect(), timeout=30)
+            sent = await asyncio.wait_for(client.send_code_request(owner.phone), timeout=30)
+            return sent.phone_code_hash
+        finally:
+            await client.disconnect()
     return _run(inner())
 
 
 def sign_in_code(owner, code):
     async def inner():
         client = client_for(owner)
-        await client.connect()
-        await client.sign_in(owner.phone, code, phone_code_hash=owner.phone_code_hash)
-        return await client.is_user_authorized()
+        try:
+            await client.connect()
+            await client.sign_in(owner.phone, code, phone_code_hash=owner.phone_code_hash)
+            return await client.is_user_authorized()
+        finally:
+            await client.disconnect()
     return _run(inner())
 
 
 def sign_in_password(owner, password):
     async def inner():
         client = client_for(owner)
-        await client.connect()
-        await client.sign_in(password=password)
-        return await client.is_user_authorized()
+        try:
+            await client.connect()
+            await client.sign_in(password=password)
+            return await client.is_user_authorized()
+        finally:
+            await client.disconnect()
     return _run(inner())
 
 
 def is_authorized(owner=None):
     async def inner():
         client = client_for(owner)
-        await client.connect()
-        return await client.is_user_authorized()
+        try:
+            await client.connect()
+            return await client.is_user_authorized()
+        finally:
+            await client.disconnect()
     return _run(inner())
 
 
 def upload_file(path, progress_cb=None):
     async def inner():
         client = client_for()
-        await client.connect()
-        message = await client.send_file("me", path, progress_callback=progress_cb)
-        return message.id
+        try:
+            await client.connect()
+            message = await client.send_file("me", path, progress_callback=progress_cb)
+            return message.id
+        finally:
+            await client.disconnect()
     return _run(inner())
 
 
 def download_file(message_id, path, progress_cb=None):
     async def inner():
         client = client_for()
-        await client.connect()
-        message = await client.get_messages("me", ids=int(message_id))
-        if not message:
-            frappe.throw("Telegram message not found")
-        await client.download_media(message, file=path, progress_callback=progress_cb)
-        return path
+        try:
+            await client.connect()
+            message = await client.get_messages("me", ids=int(message_id))
+            if not message:
+                frappe.throw("Telegram message not found")
+            await client.download_media(message, file=path, progress_callback=progress_cb)
+            return path
+        finally:
+            await client.disconnect()
     return _run(inner())
 
 
 def delete_message(message_id):
     async def inner():
         client = client_for()
-        await client.connect()
-        await client.delete_messages("me", [int(message_id)])
+        try:
+            await client.connect()
+            await client.delete_messages("me", [int(message_id)])
+        finally:
+            await client.disconnect()
     return _run(inner())
