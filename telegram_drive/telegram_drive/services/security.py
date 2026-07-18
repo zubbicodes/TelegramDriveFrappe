@@ -26,7 +26,7 @@ def has_drive_role():
 def has_admin_role():
     if frappe.session.user == "Guest":
         return False
-    return ADMIN_ROLE in frappe.get_roles()
+    return frappe.session.user == "Administrator" or ADMIN_ROLE in frappe.get_roles()
 
 
 def require_drive_access():

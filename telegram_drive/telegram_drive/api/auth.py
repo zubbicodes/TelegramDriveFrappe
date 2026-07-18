@@ -4,7 +4,7 @@ import frappe
 from telethon.errors import SessionPasswordNeededError
 
 from telegram_drive.services import telegram_service
-from telegram_drive.services.security import get_owner_token_doc, has_admin_role, has_drive_role, make_token, require_drive_access
+from telegram_drive.services.security import get_owner_token_doc, has_admin_role, has_drive_role, make_token, require_admin, require_drive_access
 
 
 @frappe.whitelist(allow_guest=True)
@@ -12,8 +12,9 @@ def csrf():
     return {"csrf_token": frappe.session.data.csrf_token}
 
 
-@frappe.whitelist(allow_guest=True)
+@frappe.whitelist()
 def start(phone, api_id, api_hash, proxy_type="none", proxy_host=None, proxy_port=None, proxy_secret=None, proxy_username=None, proxy_password=None):
+    require_admin()
     doc = frappe.get_doc("Telegram Drive Owner", phone) if frappe.db.exists("Telegram Drive Owner", phone) else frappe.new_doc("Telegram Drive Owner")
     token = doc.token or make_token(24)
     doc.update({
@@ -46,8 +47,9 @@ def start(phone, api_id, api_hash, proxy_type="none", proxy_host=None, proxy_por
     return {"status": "code_sent", "token": token}
 
 
-@frappe.whitelist(allow_guest=True)
+@frappe.whitelist()
 def verify_code(token=None, phone=None, code=None):
+    require_admin()
     owner = frappe.get_doc("Telegram Drive Owner", phone) if phone else frappe.get_doc("Telegram Drive Owner", frappe.db.get_value("Telegram Drive Owner", {"token": token}, "name"))
     try:
         authorized = telegram_service.sign_in_code(owner, code)
@@ -59,8 +61,9 @@ def verify_code(token=None, phone=None, code=None):
     return {"status": "success" if authorized else "failed"}
 
 
-@frappe.whitelist(allow_guest=True)
+@frappe.whitelist()
 def verify_password(token=None, phone=None, password=None):
+    require_admin()
     owner = frappe.get_doc("Telegram Drive Owner", phone) if phone else frappe.get_doc("Telegram Drive Owner", frappe.db.get_value("Telegram Drive Owner", {"token": token}, "name"))
     authorized = telegram_service.sign_in_password(owner, password)
     owner.is_authorized = 1 if authorized else 0

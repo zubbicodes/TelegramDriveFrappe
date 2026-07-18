@@ -20,7 +20,7 @@ after_migrate = [
 add_to_apps_screen = [
     {
         "name": "telegram_drive",
-        "logo": "/assets/telegram_drive/images/telegram-drive.svg",
+        "logo": "/assets/telegram_drive/images/flow-logo.png",
         "title": "Telegram Drive",
         "route": "/telegram-drive",
         "has_permission": "telegram_drive.permissions.has_app_permission",

@@ -108,7 +108,6 @@ services:
         fi
 
         bench build --app "${APP_NAME}" || true
-        bench --site "${SITE_NAME}" set-config ignore_csrf 1
         bench --site "${SITE_NAME}" clear-cache
         bench --site "${SITE_NAME}" clear-website-cache
 
